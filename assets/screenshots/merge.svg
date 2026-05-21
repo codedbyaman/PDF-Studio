@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">PDF Studio merge PDF screen preview</title>
+  <desc id="desc">A preview of the merge PDF workspace with file list, page chips, and live page previews.</desc>
+  <defs>
+    <linearGradient id="merge" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#34a853"/>
+      <stop offset="1" stop-color="#1a73e8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#3c4043" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="#f8fbff"/>
+  <rect x="0" y="0" width="1200" height="82" fill="#ffffff"/>
+  <rect x="24" y="82" width="292" height="678" fill="#ffffff" opacity="0.82"/>
+  <circle cx="58" cy="41" r="23" fill="url(#merge)"/>
+  <text x="95" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">PDF Studio</text>
+  <rect x="42" y="120" width="238" height="174" rx="8" fill="#ffffff" stroke="#dadce0"/>
+  <text x="62" y="155" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">Merge</text>
+  <text x="62" y="190" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">Selected pages</text>
+  <text x="230" y="190" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">8</text>
+  <rect x="62" y="220" width="198" height="44" rx="8" fill="#e6f4ea"/>
+  <text x="130" y="247" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#188038">Add PDFs</text>
+  <rect x="348" y="112" width="800" height="182" rx="8" fill="url(#merge)" filter="url(#shadow)"/>
+  <text x="388" y="165" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" opacity="0.86">COMBINE DOCUMENTS</text>
+  <text x="388" y="214" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#ffffff">Merge PDFs into one polished file</text>
+  <rect x="348" y="322" width="800" height="90" rx="8" fill="#ffffff" stroke="#1a73e8" stroke-dasharray="8 8"/>
+  <text x="650" y="360" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">Drop PDF files here</text>
+  <text x="605" y="386" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">Files are kept in your browser while you work.</text>
+  <g filter="url(#shadow)">
+    <rect x="348" y="436" width="800" height="94" rx="8" fill="#ffffff"/>
+    <rect x="348" y="548" width="800" height="94" rx="8" fill="#ffffff"/>
+  </g>
+  <rect x="370" y="461" width="46" height="46" rx="8" fill="#ea4335"/>
+  <text x="433" y="475" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#202124">contract.pdf</text>
+  <text x="433" y="500" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">6 pages | 4 selected | Drag to reorder</text>
+  <rect x="760" y="468" width="40" height="30" rx="8" fill="url(#merge)"/>
+  <rect x="808" y="468" width="40" height="30" rx="8" fill="url(#merge)"/>
+  <rect x="856" y="468" width="40" height="30" rx="8" fill="#ffffff" stroke="#dadce0"/>
+  <rect x="370" y="573" width="46" height="46" rx="8" fill="#ea4335"/>
+  <text x="433" y="587" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#202124">invoice.pdf</text>
+  <text x="433" y="612" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">4 pages | 4 selected | Drag to reorder</text>
+  <rect x="348" y="666" width="800" height="58" rx="8" fill="#ffffff" stroke="#dadce0"/>
+  <text x="372" y="700" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">Live preview: pages selected for merge</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">PDF Studio split PDF screen preview</title>
+  <desc id="desc">A preview of the split PDF workspace with page thumbnails and selected pages.</desc>
+  <defs>
+    <linearGradient id="split" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbbc04"/>
+      <stop offset="1" stop-color="#34a853"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#3c4043" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="#fffaf1"/>
+  <rect x="0" y="0" width="1200" height="82" fill="#ffffff"/>
+  <rect x="24" y="82" width="292" height="678" fill="#ffffff" opacity="0.82"/>
+  <circle cx="58" cy="41" r="23" fill="url(#split)"/>
+  <text x="95" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">PDF Studio</text>
+  <rect x="42" y="120" width="238" height="196" rx="8" fill="#ffffff" stroke="#dadce0"/>
+  <text x="62" y="155" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#202124">Split</text>
+  <text x="62" y="190" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">Selected pages</text>
+  <text x="230" y="190" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">5</text>
+  <rect x="62" y="220" width="198" height="44" rx="8" fill="#fef7e0"/>
+  <text x="132" y="247" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#b06000">Open PDF</text>
+  <rect x="62" y="274" width="198" height="44" rx="8" fill="url(#split)"/>
+  <text x="118" y="301" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Export Pages</text>
+  <rect x="348" y="112" width="800" height="182" rx="8" fill="url(#split)" filter="url(#shadow)"/>
+  <text x="388" y="165" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" opacity="0.86">EXTRACT PAGES</text>
+  <text x="388" y="214" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#ffffff">Split a PDF into the pages you need</text>
+  <rect x="348" y="322" width="800" height="90" rx="8" fill="#ffffff" stroke="#b06000" stroke-dasharray="8 8"/>
+  <text x="666" y="360" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#202124">Drop one PDF here</text>
+  <text x="642" y="386" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">Select the pages you want to export.</text>
+  <rect x="348" y="436" width="800" height="288" rx="8" fill="#ffffff" stroke="#dadce0" filter="url(#shadow)"/>
+  <text x="376" y="482" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Pages in this PDF</text>
+  <g>
+    <rect x="378" y="520" width="118" height="156" rx="8" fill="#f8fafd" stroke="#b06000" stroke-width="3"/>
+    <rect x="518" y="520" width="118" height="156" rx="8" fill="#f8fafd" stroke="#dadce0"/>
+    <rect x="658" y="520" width="118" height="156" rx="8" fill="#f8fafd" stroke="#b06000" stroke-width="3"/>
+    <rect x="798" y="520" width="118" height="156" rx="8" fill="#f8fafd" stroke="#b06000" stroke-width="3"/>
+    <rect x="938" y="520" width="118" height="156" rx="8" fill="#f8fafd" stroke="#dadce0"/>
+  </g>
+  <text x="414" y="706" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Page 1</text>
+  <text x="554" y="706" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Page 2</text>
+  <text x="694" y="706" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Page 3</text>
+  <text x="834" y="706" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Page 4</text>
+  <text x="974" y="706" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Page 5</text>
+</svg>

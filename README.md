@@ -28,12 +28,31 @@ PDF Studio is a browser-based PDF utility website for editing, merging, splittin
 
 ```text
 .
+├── assets
+│   └── screenshots
+│       ├── home.svg
+│       ├── merge.svg
+│       └── split.svg
 ├── index.html
 ├── README.md
 └── src
     ├── app.js
     └── styles.css
 ```
+
+## Screenshots
+
+### Home
+
+![PDF Studio home screen](assets/screenshots/home.svg)
+
+### Merge PDF
+
+![PDF Studio merge PDF screen](assets/screenshots/merge.svg)
+
+### Split PDF
+
+![PDF Studio split PDF screen](assets/screenshots/split.svg)
 
 ## Run Locally
 

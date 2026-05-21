@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">PDF Studio home screen preview</title>
+  <desc id="desc">A preview of the PDF Studio home dashboard with feature cards.</desc>
+  <defs>
+    <linearGradient id="hero" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#1a73e8"/>
+      <stop offset="0.52" stop-color="#ea4335"/>
+      <stop offset="1" stop-color="#fbbc04"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#3c4043" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" fill="#f8fbff"/>
+  <rect x="0" y="0" width="1200" height="82" fill="#ffffff" opacity="0.94"/>
+  <circle cx="58" cy="41" r="23" fill="url(#hero)"/>
+  <text x="48" y="49" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">P</text>
+  <text x="95" y="36" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">PDF Studio</text>
+  <text x="95" y="57" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">Edit, merge, and convert files</text>
+  <rect x="380" y="23" width="440" height="38" rx="8" fill="#f1f3f4"/>
+  <text x="407" y="47" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1a73e8">Home</text>
+  <text x="480" y="47" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Edit PDF</text>
+  <text x="570" y="47" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Merge PDF</text>
+  <text x="680" y="47" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#5f6368">Split PDF</text>
+  <rect x="82" y="126" width="1036" height="310" rx="8" fill="url(#hero)" filter="url(#shadow)"/>
+  <text x="132" y="204" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff" opacity="0.86">PDF WORKFLOW STUDIO</text>
+  <text x="132" y="264" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff">All your PDF tools in one</text>
+  <text x="132" y="322" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff">browser workspace</text>
+  <text x="132" y="374" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" opacity="0.9">Edit text, merge documents, split selected pages, and convert images.</text>
+  <g filter="url(#shadow)">
+    <rect x="82" y="474" width="245" height="170" rx="8" fill="#ffffff"/>
+    <rect x="350" y="474" width="245" height="170" rx="8" fill="#ffffff"/>
+    <rect x="618" y="474" width="245" height="170" rx="8" fill="#ffffff"/>
+    <rect x="886" y="474" width="232" height="170" rx="8" fill="#ffffff"/>
+  </g>
+  <rect x="108" y="502" width="46" height="46" rx="8" fill="#1a73e8"/>
+  <rect x="376" y="502" width="46" height="46" rx="8" fill="#34a853"/>
+  <rect x="644" y="502" width="46" height="46" rx="8" fill="#fbbc04"/>
+  <rect x="912" y="502" width="46" height="46" rx="8" fill="#ea4335"/>
+  <text x="108" y="584" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Edit PDF</text>
+  <text x="376" y="584" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Merge PDF</text>
+  <text x="644" y="584" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Split PDF</text>
+  <text x="912" y="584" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Photos to PDF</text>
+</svg>
