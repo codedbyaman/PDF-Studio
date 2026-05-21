@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">P</span>
+          <div>
+            <h1>PDF Studio</h1>
+            <p>Edit, merge, and convert files</p>
+          </div>
+        </div>
+        <nav class="mode-tabs" aria-label="PDF tools">
+          <button class="mode-tab active" type="button" data-mode="home">Home</button>
+          <button class="mode-tab" type="button" data-mode="edit">Edit PDF</button>
+          <button class="mode-tab" type="button" data-mode="merge">Merge PDF</button>
+          <button class="mode-tab" type="button" data-mode="split">Split PDF</button>
+          <button class="mode-tab" type="button" data-mode="photos">Photos to PDF</button>
+          <button class="mode-tab" type="button" data-mode="about">About</button>
+        </nav>
+        <div class="top-actions">
+          <button id="login-button" class="button button-secondary" type="button">Sign in</button>
+          <div id="user-menu" class="user-menu hidden">
+            <button id="user-chip" class="user-chip" type="button">
+              <span id="user-avatar">U</span>
+              <span id="user-name">User</span>
+            </button>
+            <button id="logout-button" class="button button-secondary" type="button">Logout</button>
+          </div>
+          <label class="button button-secondary mode-action" data-action-mode="edit">
+            <span>Open PDF</span>
+            <input id="file-input" type="file" accept="application/pdf" />
+          </label>
+          <button id="save-button" class="button button-primary mode-action" data-action-mode="edit" type="button" disabled>
+            Save PDF
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="sidebar">
+          <section class="panel sidebar-panel" data-sidebar-mode="edit">
+            <div class="panel-heading">
+              <h2>Document</h2>
+              <span id="page-count">No file</span>
+            </div>
+            <div class="tool-grid">
+              <button id="zoom-out" class="icon-button" type="button" disabled title="Zoom out">-</button>
+              <output id="zoom-level">100%</output>
+              <button id="zoom-in" class="icon-button" type="button" disabled title="Zoom in">+</button>
+            </div>
+          </section>
+
+          <section class="panel sidebar-panel" data-sidebar-mode="edit">
+            <div class="panel-heading">
+              <h2>Text</h2>
+              <span id="edit-count">0 edits</span>
+            </div>
+            <label class="field">
+              <span>Font size</span>
+              <input id="font-size" type="number" min="6" max="96" value="14" />
+            </label>
+            <label class="field">
+              <span>Text color</span>
+              <input id="text-color" type="color" value="#202124" />
+            </label>
+            <label class="field">
+              <span>Background</span>
+              <input id="cover-color" type="color" value="#ffffff" />
+            </label>
+          </section>
+
+          <section class="panel sidebar-panel" data-sidebar-mode="edit">
+            <div class="panel-heading">
+              <h2>Pages</h2>
+              <span id="active-page">-</span>
+            </div>
+            <div id="page-list" class="page-list"></div>
+          </section>
+
+          <section class="panel sidebar-panel hidden" data-sidebar-mode="merge">
+            <div class="panel-heading">
+              <h2>Merge</h2>
+              <span id="merge-count">0 files</span>
+            </div>
+            <p class="panel-copy">Add PDFs, arrange the order, then export one combined document.</p>
+            <div class="stat-row">
+              <span>Selected pages</span>
+              <strong id="merge-selected-count">0</strong>
+            </div>
+            <label class="button button-secondary full-button">
+              Add PDFs
+              <input id="merge-input" type="file" accept="application/pdf" multiple />
+            </label>
+            <button id="merge-button" class="button button-primary full-button" type="button" disabled>
+              Merge PDF
+            </button>
+          </section>
+
+          <section class="panel sidebar-panel hidden" data-sidebar-mode="split">
+            <div class="panel-heading">
+              <h2>Split</h2>
+              <span id="split-count">No file</span>
+            </div>
+            <p class="panel-copy">Choose pages from one PDF and export them as a new document.</p>
+            <div class="stat-row">
+              <span>Selected pages</span>
+              <strong id="split-selected-count">0</strong>
+            </div>
+            <label class="button button-secondary full-button">
+              Open PDF
+              <input id="split-input" type="file" accept="application/pdf" />
+            </label>
+            <button id="split-button" class="button button-primary full-button" type="button" disabled>
+              Export Pages
+            </button>
+          </section>
+
+          <section class="panel sidebar-panel hidden" data-sidebar-mode="photos">
+            <div class="panel-heading">
+              <h2>Photos</h2>
+              <span id="photo-count">0 photos</span>
+            </div>
+            <p class="panel-copy">Create a clean PDF from JPG or PNG images.</p>
+            <label class="field">
+              <span>Page size</span>
+              <select id="photo-page-size">
+                <option value="image">Match each photo</option>
+                <option value="a4">A4 portrait</option>
+                <option value="letter">Letter portrait</option>
+              </select>
+            </label>
+            <label class="button button-secondary full-button">
+              Add Photos
+              <input id="photo-input" type="file" accept="image/png,image/jpeg" multiple />
+            </label>
+            <button id="photos-button" class="button button-primary full-button" type="button" disabled>
+              Convert to PDF
+            </button>
+          </section>
+        </aside>
+
+        <section class="editor">
+          <div id="home-view" class="tool-view active">
+            <section class="home-hero">
+              <span class="tool-kicker">PDF workflow studio</span>
+              <h2>All your PDF tools in one browser workspace</h2>
+              <p>Edit text, merge documents, split selected pages, and convert images without uploading files to a server.</p>
+            </section>
+            <section class="feature-grid">
+              <button class="feature-card" type="button" data-open-mode="edit">
+                <span class="feature-icon edit-icon">E</span>
+                <strong>Edit PDF</strong>
+                <span>Open a PDF and edit detected text directly on the page.</span>
+              </button>
+              <button class="feature-card" type="button" data-open-mode="merge">
+                <span class="feature-icon merge-icon">M</span>
+                <strong>Merge PDF</strong>
+                <span>Select files, choose pages, preview order, and export one PDF.</span>
+              </button>
+              <button class="feature-card" type="button" data-open-mode="split">
+                <span class="feature-icon split-icon">S</span>
+                <strong>Split PDF</strong>
+                <span>Pick only the pages you need and save a smaller PDF.</span>
+              </button>
+              <button class="feature-card" type="button" data-open-mode="photos">
+                <span class="feature-icon photo-icon">P</span>
+                <strong>Photos to PDF</strong>
+                <span>Convert JPG and PNG photos into a clean PDF document.</span>
+              </button>
+            </section>
+            <footer class="site-footer">
+              <div class="footer-brand">
+                <span class="footer-mark">P</span>
+                <div>
+                  <strong>PDF Studio</strong>
+                  <span>Browser-based PDF tools for everyday document work.</span>
+                </div>
+              </div>
+              <div class="footer-columns">
+                <nav aria-label="PDF tools">
+                  <strong>Tools</strong>
+                  <button type="button" data-open-mode="edit">Edit PDF</button>
+                  <button type="button" data-open-mode="merge">Merge PDF</button>
+                  <button type="button" data-open-mode="split">Split PDF</button>
+                  <button type="button" data-open-mode="photos">Photos to PDF</button>
+                </nav>
+                <nav aria-label="Company">
+                  <strong>Product</strong>
+                  <button type="button" data-open-mode="home">Home</button>
+                  <button type="button" data-open-mode="about">About</button>
+                </nav>
+              </div>
+              <div class="footer-bottom">
+                <span>Files are processed locally in your browser session.</span>
+                <span>PDF Studio 2026</span>
+              </div>
+            </footer>
+          </div>
+
+          <div id="edit-view" class="tool-view">
+            <div id="empty-state" class="empty-state">
+              <div class="upload-card">
+                <span class="upload-icon">PDF</span>
+                <h2>Drop in a PDF and start editing</h2>
+                <p>Detected text becomes editable directly on each page.</p>
+                <label class="button button-primary">
+                  Choose PDF
+                  <input id="empty-file-input" type="file" accept="application/pdf" />
+                </label>
+              </div>
+            </div>
+            <div id="page-stage" class="page-stage" aria-live="polite"></div>
+          </div>
+
+          <div id="merge-view" class="tool-view">
+            <div class="tool-hero merge-hero">
+              <div>
+                <span class="tool-kicker">Combine documents</span>
+                <h2>Merge PDFs into one polished file</h2>
+                <p>Upload multiple PDF files, reorder them, and download a single combined PDF.</p>
+              </div>
+              <label class="button button-primary">
+                Select PDFs
+                <input id="merge-empty-input" type="file" accept="application/pdf" multiple />
+              </label>
+            </div>
+            <div id="merge-dropzone" class="dropzone">
+              <strong>Drop PDF files here</strong>
+              <span>Files are kept in your browser while you work.</span>
+            </div>
+            <div id="merge-list" class="file-list"></div>
+            <section class="preview-section">
+              <div class="section-heading">
+                <div>
+                  <span class="tool-kicker">Live preview</span>
+                  <h3>Pages selected for merge</h3>
+                </div>
+                <span id="merge-preview-count">0 pages</span>
+              </div>
+              <div id="merge-preview" class="preview-grid"></div>
+            </section>
+          </div>
+
+          <div id="split-view" class="tool-view">
+            <div class="tool-hero split-hero">
+              <div>
+                <span class="tool-kicker">Extract pages</span>
+                <h2>Split a PDF into the pages you actually need</h2>
+                <p>Upload one PDF, select pages, preview the output, and download the selected pages as a new PDF.</p>
+              </div>
+              <label class="button button-primary">
+                Select PDF
+                <input id="split-empty-input" type="file" accept="application/pdf" />
+              </label>
+            </div>
+            <div id="split-dropzone" class="dropzone">
+              <strong>Drop one PDF here</strong>
+              <span>Select the pages you want to export.</span>
+            </div>
+            <section class="preview-section">
+              <div class="section-heading">
+                <div>
+                  <span class="tool-kicker">Page picker</span>
+                  <h3>Pages in this PDF</h3>
+                </div>
+                <span id="split-preview-count">0 pages</span>
+              </div>
+              <div class="page-picker-actions split-actions">
+                <button id="split-select-all" class="mini-button" type="button" disabled>All</button>
+                <button id="split-select-none" class="mini-button" type="button" disabled>None</button>
+              </div>
+              <div id="split-preview" class="preview-grid"></div>
+            </section>
+          </div>
+
+          <div id="photos-view" class="tool-view">
+            <div class="tool-hero photo-hero">
+              <div>
+                <span class="tool-kicker">Image conversion</span>
+                <h2>Turn photos into a ready-to-share PDF</h2>
+                <p>Add JPG or PNG images, arrange them, and export each photo as a PDF page.</p>
+              </div>
+              <label class="button button-primary">
+                Select Photos
+                <input id="photo-empty-input" type="file" accept="image/png,image/jpeg" multiple />
+              </label>
+            </div>
+            <div id="photo-dropzone" class="dropzone">
+              <strong>Drop photos here</strong>
+              <span>JPG and PNG files are supported.</span>
+            </div>
+            <div id="photo-list" class="file-list photo-list"></div>
+          </div>
+
+          <div id="about-view" class="tool-view">
+            <section class="about-panel">
+              <span class="tool-kicker">About PDF Studio</span>
+              <h2>Fast PDF tools built for local browser workflows</h2>
+              <p>
+                PDF Studio keeps common document tasks in one clean interface: editing selectable text, merging files,
+                splitting pages, and converting photos to PDF.
+              </p>
+              <div class="about-grid">
+                <div>
+                  <strong>Private by design</strong>
+                  <span>Your files are processed in the browser during this session.</span>
+                </div>
+                <div>
+                  <strong>Page-level control</strong>
+                  <span>Preview and choose exactly which pages are exported.</span>
+                </div>
+                <div>
+                  <strong>Professional workflow</strong>
+                  <span>Upload, reorder, preview, and download from one workspace.</span>
+                </div>
+              </div>
+            </section>
+            <footer class="site-footer">
+              <div class="footer-brand">
+                <span class="footer-mark">P</span>
+                <div>
+                  <strong>PDF Studio</strong>
+                  <span>Practical tools for editing, combining, splitting, and converting documents.</span>
+                </div>
+              </div>
+              <div class="footer-columns">
+                <nav aria-label="PDF tools">
+                  <strong>Tools</strong>
+                  <button type="button" data-open-mode="edit">Edit PDF</button>
+                  <button type="button" data-open-mode="merge">Merge PDF</button>
+                  <button type="button" data-open-mode="split">Split PDF</button>
+                  <button type="button" data-open-mode="photos">Photos to PDF</button>
+                </nav>
+                <nav aria-label="Company">
+                  <strong>Product</strong>
+                  <button type="button" data-open-mode="home">Home</button>
+                  <button type="button" data-open-mode="about">About</button>
+                </nav>
+              </div>
+              <div class="footer-bottom">
+                <span>Built for practical browser-based PDF workflows.</span>
+                <span>PDF Studio 2026</span>
+              </div>
+            </footer>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="login-dialog" class="login-dialog">
+      <form id="login-form" class="login-panel" method="dialog">
+        <div class="login-heading">
+          <div>
+            <span class="tool-kicker">Account</span>
+            <h2>Sign in to PDF Studio</h2>
+            <p>Keep your workspace preferences available in this browser.</p>
+          </div>
+          <button id="close-login" class="mini-button" type="button" aria-label="Close login">X</button>
+        </div>
+
+        <div class="social-grid">
+          <button class="social-button google" type="button" data-provider="Google">
+            <span>G</span>
+            Continue with Google
+          </button>
+          <button class="social-button facebook" type="button" data-provider="Facebook">
+            <span>f</span>
+            Continue with Facebook
+          </button>
+          <button class="social-button github" type="button" data-provider="GitHub">
+            <span>GH</span>
+            Continue with GitHub
+          </button>
+        </div>
+
+        <div class="divider"><span>or</span></div>
+
+        <label class="field">
+          <span>Email address</span>
+          <input id="login-email" type="email" placeholder="you@example.com" autocomplete="email" />
+        </label>
+        <label class="field">
+          <span>Name</span>
+          <input id="login-name" type="text" placeholder="Your name" autocomplete="name" />
+        </label>
+        <button class="button button-primary full-button" type="submit">Continue</button>
+        <p class="login-note">Demo login stores only a local browser session. Real Google/social login requires OAuth setup.</p>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="src/app.js" type="module"></script>
+  </body>
+</html>
