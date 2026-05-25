@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">PDF Studio home screen preview</title>
-  <desc id="desc">A preview of the PDF Studio home dashboard with feature cards.</desc>
+  <title id="title">Free PDF Studio home screen preview</title>
+  <desc id="desc">A preview of the Free PDF Studio home dashboard with feature cards.</desc>
   <defs>
     <linearGradient id="hero" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#1a73e8"/>
@@ -15,7 +15,7 @@
   <rect x="0" y="0" width="1200" height="82" fill="#ffffff" opacity="0.94"/>
   <circle cx="58" cy="41" r="23" fill="url(#hero)"/>
   <text x="48" y="49" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">P</text>
-  <text x="95" y="36" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">PDF Studio</text>
+  <text x="95" y="36" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#202124">Free PDF Studio</text>
   <text x="95" y="57" font-family="Arial, sans-serif" font-size="13" fill="#5f6368">Edit, merge, and convert files</text>
   <rect x="380" y="23" width="440" height="38" rx="8" fill="#f1f3f4"/>
   <text x="407" y="47" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1a73e8">Home</text>

@@ -1,6 +1,6 @@
-# PDF Studio
+# Free PDF Studio
 
-PDF Studio is a browser-based PDF utility website for editing, merging, splitting, and converting documents. It is built as a static frontend app with HTML, CSS, JavaScript, PDF.js, and pdf-lib.
+Free PDF Studio is a browser-based PDF utility website for editing, merging, splitting, and converting documents. It is built as a static frontend app with HTML, CSS, JavaScript, PDF.js, and pdf-lib.
 
 ## Features
 
@@ -44,15 +44,15 @@ PDF Studio is a browser-based PDF utility website for editing, merging, splittin
 
 ### Home
 
-![PDF Studio home screen](assets/screenshots/home.svg)
+![Free PDF Studio home screen](assets/screenshots/home.svg)
 
 ### Merge PDF
 
-![PDF Studio merge PDF screen](assets/screenshots/merge.svg)
+![Free PDF Studio merge PDF screen](assets/screenshots/merge.svg)
 
 ### Split PDF
 
-![PDF Studio split PDF screen](assets/screenshots/split.svg)
+![Free PDF Studio split PDF screen](assets/screenshots/split.svg)
 
 ## Run Locally
 
