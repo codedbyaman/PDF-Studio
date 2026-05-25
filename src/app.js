@@ -23,6 +23,7 @@ const els = {
   fileInput: document.querySelector("#file-input"),
   emptyFileInput: document.querySelector("#empty-file-input"),
   saveButton: document.querySelector("#save-button"),
+  resetEditButton: document.querySelector("#reset-edit-button"),
   zoomIn: document.querySelector("#zoom-in"),
   zoomOut: document.querySelector("#zoom-out"),
   zoomLevel: document.querySelector("#zoom-level"),
@@ -54,6 +55,7 @@ const els = {
   mergeInput: document.querySelector("#merge-input"),
   mergeEmptyInput: document.querySelector("#merge-empty-input"),
   mergeButton: document.querySelector("#merge-button"),
+  resetMergeButton: document.querySelector("#reset-merge-button"),
   mergeCount: document.querySelector("#merge-count"),
   mergeSelectedCount: document.querySelector("#merge-selected-count"),
   mergePreviewCount: document.querySelector("#merge-preview-count"),
@@ -63,6 +65,7 @@ const els = {
   splitInput: document.querySelector("#split-input"),
   splitEmptyInput: document.querySelector("#split-empty-input"),
   splitButton: document.querySelector("#split-button"),
+  resetSplitButton: document.querySelector("#reset-split-button"),
   splitCount: document.querySelector("#split-count"),
   splitSelectedCount: document.querySelector("#split-selected-count"),
   splitPreviewCount: document.querySelector("#split-preview-count"),
@@ -73,6 +76,7 @@ const els = {
   photoInput: document.querySelector("#photo-input"),
   photoEmptyInput: document.querySelector("#photo-empty-input"),
   photosButton: document.querySelector("#photos-button"),
+  resetPhotosButton: document.querySelector("#reset-photos-button"),
   photoCount: document.querySelector("#photo-count"),
   photoList: document.querySelector("#photo-list"),
   photoDropzone: document.querySelector("#photo-dropzone"),
@@ -100,13 +104,17 @@ function updateControls() {
   const selectedMergePages = getSelectedMergePages().length;
   const selectedSplitPages = state.splitFile ? state.splitFile.selectedPages.size : 0;
   els.saveButton.disabled = !hasPdf;
+  els.resetEditButton.disabled = !hasPdf;
   els.zoomIn.disabled = !hasPdf;
   els.zoomOut.disabled = !hasPdf;
   els.mergeButton.disabled = selectedMergePages === 0;
+  els.resetMergeButton.disabled = state.mergeFiles.length === 0;
   els.splitButton.disabled = selectedSplitPages === 0;
+  els.resetSplitButton.disabled = !state.splitFile;
   els.splitSelectAll.disabled = !state.splitFile;
   els.splitSelectNone.disabled = !state.splitFile;
   els.photosButton.disabled = state.photoFiles.length === 0;
+  els.resetPhotosButton.disabled = state.photoFiles.length === 0;
   els.zoomLevel.value = `${Math.round((state.scale / 1.25) * 100)}%`;
   els.pageCount.textContent = hasPdf ? `${state.pages.length} page${state.pages.length === 1 ? "" : "s"}` : "No file";
   els.activePage.textContent = hasPdf ? `Page ${state.activePage}` : "-";
@@ -127,9 +135,13 @@ function updateControls() {
 function setBusy(isBusy) {
   document.body.style.cursor = isBusy ? "progress" : "";
   els.saveButton.disabled = isBusy || !state.pdf;
+  els.resetEditButton.disabled = isBusy || !state.pdf;
   els.mergeButton.disabled = isBusy || getSelectedMergePages().length === 0;
+  els.resetMergeButton.disabled = isBusy || state.mergeFiles.length === 0;
   els.splitButton.disabled = isBusy || !state.splitFile || state.splitFile.selectedPages.size === 0;
+  els.resetSplitButton.disabled = isBusy || !state.splitFile;
   els.photosButton.disabled = isBusy || state.photoFiles.length === 0;
+  els.resetPhotosButton.disabled = isBusy || state.photoFiles.length === 0;
 }
 
 function formatBytes(bytes) {
@@ -158,6 +170,62 @@ function downloadBytes(bytes, fileName, type = "application/pdf") {
   anchor.download = fileName;
   anchor.click();
   URL.revokeObjectURL(url);
+}
+
+function resetEditPdf(options = {}) {
+  const { notify = true } = options;
+  state.pdf?.destroy?.();
+  state.fileName = "edited.pdf";
+  state.originalBytes = null;
+  state.pdf = null;
+  state.pages = [];
+  state.edits.clear();
+  state.activePage = 1;
+  state.selectedBox = null;
+  state.scale = 1.25;
+  els.fileInput.value = "";
+  els.emptyFileInput.value = "";
+  els.pageStage.innerHTML = "";
+  els.pageList.innerHTML = "";
+  els.emptyState.style.display = "";
+  updateControls();
+  if (notify) showToast("PDF removed. Choose another file to edit.");
+}
+
+async function resetMergePdfs(options = {}) {
+  const { notify = true } = options;
+  state.mergeFiles.forEach((item) => item.pdf?.destroy?.());
+  state.mergeFiles = [];
+  state.mergePageOrder = [];
+  mergePreviewRun += 1;
+  els.mergeInput.value = "";
+  els.mergeEmptyInput.value = "";
+  els.mergeList.innerHTML = "";
+  await renderMergePreview();
+  updateControls();
+  if (notify) showToast("Merge files cleared.");
+}
+
+async function resetSplitPdf(options = {}) {
+  const { notify = true } = options;
+  state.splitFile?.pdf?.destroy?.();
+  state.splitFile = null;
+  els.splitInput.value = "";
+  els.splitEmptyInput.value = "";
+  await renderSplitPreview();
+  updateControls();
+  if (notify) showToast("Split PDF removed.");
+}
+
+function resetPhotos(options = {}) {
+  const { notify = true } = options;
+  state.photoFiles.forEach((item) => URL.revokeObjectURL(item.url));
+  state.photoFiles = [];
+  els.photoInput.value = "";
+  els.photoEmptyInput.value = "";
+  els.photoList.innerHTML = "";
+  updateControls();
+  if (notify) showToast("Photos cleared.");
 }
 
 function switchMode(mode) {
@@ -471,7 +539,8 @@ async function savePdf() {
 
     const bytes = await doc.save();
     downloadBytes(bytes, state.fileName);
-    showToast("Edited PDF saved.");
+    resetEditPdf({ notify: false });
+    showToast("Edited PDF saved. Workspace reset.");
   } catch (error) {
     console.error(error);
     showToast(error.message || "Could not save the edited PDF.");
@@ -940,7 +1009,8 @@ async function mergePdfs() {
 
     const bytes = await merged.save();
     downloadBytes(bytes, "merged-document.pdf");
-    showToast("Merged PDF saved.");
+    await resetMergePdfs({ notify: false });
+    showToast("Merged PDF saved. Workspace reset.");
   } catch (error) {
     console.error(error);
     showToast(error.message || "Could not merge those PDFs.");
@@ -966,7 +1036,8 @@ async function splitPdf() {
 
     const bytes = await output.save();
     downloadBytes(bytes, "split-document.pdf");
-    showToast("Selected pages exported.");
+    await resetSplitPdf({ notify: false });
+    showToast("Selected pages exported. Workspace reset.");
   } catch (error) {
     console.error(error);
     showToast(error.message || "Could not split that PDF.");
@@ -1013,7 +1084,8 @@ async function photosToPdf() {
 
     const bytes = await doc.save();
     downloadBytes(bytes, "photos.pdf");
-    showToast("Photos converted to PDF.");
+    resetPhotos({ notify: false });
+    showToast("Photos converted to PDF. Workspace reset.");
   } catch (error) {
     console.error(error);
     showToast(error.message || "Could not convert those photos.");
@@ -1159,12 +1231,15 @@ document.querySelectorAll("[data-open-mode]").forEach((card) => {
 els.fileInput.addEventListener("change", (event) => loadPdf(event.target.files[0]));
 els.emptyFileInput.addEventListener("change", (event) => loadPdf(event.target.files[0]));
 els.saveButton.addEventListener("click", savePdf);
+els.resetEditButton.addEventListener("click", resetEditPdf);
 els.mergeInput.addEventListener("change", (event) => addMergeFiles(event.target.files));
 els.mergeEmptyInput.addEventListener("change", (event) => addMergeFiles(event.target.files));
 els.mergeButton.addEventListener("click", mergePdfs);
+els.resetMergeButton.addEventListener("click", resetMergePdfs);
 els.splitInput.addEventListener("change", (event) => loadSplitPdf(event.target.files[0]));
 els.splitEmptyInput.addEventListener("change", (event) => loadSplitPdf(event.target.files[0]));
 els.splitButton.addEventListener("click", splitPdf);
+els.resetSplitButton.addEventListener("click", resetSplitPdf);
 els.splitSelectAll.addEventListener("click", async () => {
   if (!state.splitFile) return;
   state.splitFile.selectedPages = new Set(Array.from({ length: state.splitFile.pageCount }, (_, index) => index + 1));
@@ -1178,6 +1253,7 @@ els.splitSelectNone.addEventListener("click", async () => {
 els.photoInput.addEventListener("change", (event) => addPhotoFiles(event.target.files));
 els.photoEmptyInput.addEventListener("change", (event) => addPhotoFiles(event.target.files));
 els.photosButton.addEventListener("click", photosToPdf);
+els.resetPhotosButton.addEventListener("click", resetPhotos);
 els.zoomIn.addEventListener("click", () => rerenderWithScale(state.scale + 0.15));
 els.zoomOut.addEventListener("click", () => rerenderWithScale(state.scale - 0.15));
 els.fontSize.addEventListener("input", applyStyleToSelected);

@@ -5,6 +5,8 @@ Free PDF Studio is a browser-based PDF utility website for editing, merging, spl
 ## Features
 
 - Edit selectable PDF text directly on rendered pages
+- Reset or remove loaded files from each tool
+- Automatically reset tool workspaces after downloading output files
 - Merge multiple PDFs into one file
 - Select pages before merging
 - Drag and drop PDF files and selected pages to reorder output
